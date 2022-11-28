@@ -41,6 +41,49 @@ class RoleModelTest extends TestCase
       $users = $case->users;
       $this->assertTrue( $users->contains( $user ) );
     }
+    /**
+     * @dataProvider updateProvider
+     */
+    public function testPolicyToUpdate($situationId){
+        $caseData = $this->makeUpdatePolicyData($situationId);
+        list($user, $role, $result, $msg ) = $caseData;
+        $boolResult = $user->can('update',$role);
+        $this->assertEquals($result, $boolResult, $msg);
+    }
+
+    private function makeUpdatePolicyData($situationId){
+      $attorney = User::factory()->create();
+      $nonAttorney = User::factory()->create();
+      $legalCase = LegalCase::factory()->create();
+      $badCase = LegalCase::factory()->create();
+      $role = Role::factory()->create( [
+        'user_id'=>$nonAttorney->id,
+        'legal_case_id'=>$legalCase->id,
+        'type'=>Role::OTHER
+      ] );
+      $roleBadCase = Role::factory()->create( [
+        'user_id'=>$nonAttorney->id,
+        'legal_case_id'=>$legalCase->id,
+        'type'=>Role::OTHER
+      ] );
+      $attorneyRole = Role::factory()->create( [
+        'user_id'=>$attorney->id,
+        'legal_case_id'=>$legalCase->id,
+        'type'=>Role::ATTORNEY
+      ] );
+      $situations = [
+        0=>[ $attorney, $role, true, "The attorney should have the ability to update all roles on their cases."],
+        1=>[ $nonAttorney, $role, false, "Non attorneys may not edit roles on their cases."],
+        2=>[ $attorney, $roleBadCase, false, "Attorney's must be associated with the case to make a change." ]
+      ];
+      return $situations[$situationId];
+    }
+
+    public function updateProvider(){
+        return [
+          [0,1,2]
+        ];
+    }
 
     private function makeRole($overrideSettings=[]){
       $settings = [

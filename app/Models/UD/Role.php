@@ -9,11 +9,12 @@ use App\Models\UD\LegalCase;
 
 class Role extends Model
 {
-    const LEGAL_TEAM = 0;
-    const CLIENT = 1;
-    const OWNER = 2;
-    const PROP_MGR = 3;
-    const OTHER = 4;
+    const ATTORNEY = 0;
+    const LEGAL_TEAM = 5;
+    const CLIENT = 10;
+    const OWNER = 20;
+    const PROP_MGR = 30;
+    const OTHER = 40;
 
     use HasFactory;
 

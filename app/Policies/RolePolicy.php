@@ -53,7 +53,27 @@ class RolePolicy
      */
     public function update(User $user, Role $role)
     {
+        //the current user may not be the user identified in the role.
+        //to determine if the user has permission, I must establish that
+        //   1. The user has an active role in the case.
+        //   2. The user is an attorney.
         //
+        //Only the attorney can modify a role once it is created.
+
+        $case = $role->case;  //identify the related case. Assume the role is for a different user.
+        $caseUsers = $case->users;  //Get all users associated with the case.
+        $caseHasUser = $caseUsers->contains($user); //verify that user is one of them.
+        if( $caseHasUser ){
+          //fetch the role specific for the active user.
+           $userRole = Role::where(['user_id'=>$user->id, 'legal_case_id'=>$case->id])->first();
+           //verify that it exists and that the user is an attorney.
+           if($userRole != null && $userRole->type == Role::ATTORNEY){
+             //grant permission to update.
+             return true;
+           }
+        }
+        //refuse permission to update in all other cases.
+        return false;
     }
 
     /**
