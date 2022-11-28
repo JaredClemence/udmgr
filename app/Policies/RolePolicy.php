@@ -59,21 +59,26 @@ class RolePolicy
         //   2. The user is an attorney.
         //
         //Only the attorney can modify a role once it is created.
-
-        $case = $role->case;  //identify the related case. Assume the role is for a different user.
-        $caseUsers = $case->users;  //Get all users associated with the case.
-        $caseHasUser = $caseUsers->contains($user); //verify that user is one of them.
-        if( $caseHasUser ){
-          //fetch the role specific for the active user.
-           $userRole = Role::where(['user_id'=>$user->id, 'legal_case_id'=>$case->id])->first();
+        $userRole = $this->getActiveUserRole( $user, $role );
            //verify that it exists and that the user is an attorney.
            if($userRole != null && $userRole->type == Role::ATTORNEY){
              //grant permission to update.
              return true;
            }
-        }
         //refuse permission to update in all other cases.
         return false;
+    }
+
+    private function getActiveUserRole( User $user, Role $role ){
+      $case = $role->case;  //identify the related case. Assume the role is for a different user.
+      $caseUsers = $case->users;  //Get all users associated with the case.
+      $caseHasUser = $caseUsers->contains($user); //verify that user is one of them.
+      $userRole = null;
+      if( $caseHasUser ){
+        //fetch the role specific for the active user.
+         $userRole = Role::where(['user_id'=>$user->id, 'legal_case_id'=>$case->id])->first();
+       }
+       return $userRole;
     }
 
     /**
