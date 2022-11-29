@@ -17,8 +17,9 @@ class LegalCaseFactory extends Factory
      */
     public function definition()
     {
+        $faker = fake();
         return [
-            'number'=> Str::random(13)
+            'number'=> "BPB-22-" . $faker->randomNumber(6, true)
         ];
     }
 }

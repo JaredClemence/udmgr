@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use App\Models\UD\LegalCase;
 
 return new class extends Migration
 {
@@ -15,7 +16,9 @@ return new class extends Migration
     {
         Schema::create('legal_cases', function (Blueprint $table) {
             $table->id();
-            $table->string('number', 30);
+            $table->string('number', 30)->default("Not Set");
+            $table->integer('status')->default(LegalCase::OPEN);
+            $table->integer('property_id')->nullable();
             $table->timestamps();
         });
     }

@@ -6,6 +6,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use App\Models\UD\LegalCase;
+use App\Models\User;
 
 class LegalCaseSeeder extends Seeder
 {
@@ -17,6 +19,8 @@ class LegalCaseSeeder extends Seeder
      */
     public function run()
     {
-        //
+      while( LegalCase::all()->count() < 5 ){
+        LegalCase::factory()->create();
+      }
     }
 }

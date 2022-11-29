@@ -12,6 +12,13 @@
                     {{ __("You're logged in!") }}
                 </div>
             </div>
+            @php
+            $cases = App\Models\UD\LegalCase::all();
+            @endphp
+            @if( isset($cases) )
+            <x-active-cases :cases="$cases"></x-active-cases>
+            @endif
         </div>
+
     </div>
 </x-app-layout>

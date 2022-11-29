@@ -10,6 +10,9 @@ use App\Models\UD\Role;
 
 class LegalCase extends Model
 {
+    const OPEN = 0;
+    const CLOSED = 100;
+
     use HasFactory;
 
     public function parties(){
