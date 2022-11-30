@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use \App\Models\User;
+use App\Models\User;
+use Database\Seeders\LegalCaseSeeder;
+use Database\Seeders\RoleSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,10 +22,9 @@ class DatabaseSeeder extends Seeder
           'email'=>'jaredclemence@gmail.com',
           'password'=>bcrypt('abcabc123')
         ]);
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call([
+          LegalCaseSeeder::class,
+          RoleSeeder::class
+        ]);
     }
 }
