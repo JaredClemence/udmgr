@@ -3,7 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
-use App\Models\UD\LegalCase;
+use App\Models\UD\DataStructure\CaseBrief;
 
 class ActiveCase extends Component
 {
@@ -13,7 +13,7 @@ class ActiveCase extends Component
      *
      * @return void
      */
-    public function __construct(LegalCase $case)
+    public function __construct(CaseBrief $case)
     {
         $this->case = $case;
     }

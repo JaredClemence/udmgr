@@ -16,7 +16,7 @@
             $cases = App\Models\UD\LegalCase::all();
             @endphp
             @if( isset($cases) )
-            <x-active-cases :cases="$cases"></x-active-cases>
+            <x-active-cases></x-active-cases>
             @endif
         </div>
 

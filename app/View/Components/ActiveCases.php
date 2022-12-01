@@ -3,6 +3,8 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use App\Providers\CaseDetailProvider;
+use App\Models\UD\LegalCase;
 
 class ActiveCases extends Component
 {
@@ -13,8 +15,10 @@ class ActiveCases extends Component
      *
      * @return void
      */
-    public function __construct($cases)
+    public function __construct(CaseDetailProvider $provider)
     {
+        $user = auth()->user();
+        $cases = $provider->getActiveCaseCards($user);
         $this->cases = $cases;
     }
 
