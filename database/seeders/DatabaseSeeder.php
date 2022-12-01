@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use Database\Seeders\LegalCaseSeeder;
 use Database\Seeders\RoleSeeder;
+use Database\Seeders\PartySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,7 +25,8 @@ class DatabaseSeeder extends Seeder
         ]);
         $this->call([
           LegalCaseSeeder::class,
-          RoleSeeder::class
+          RoleSeeder::class,
+          PartySeeder::class,
         ]);
     }
 }

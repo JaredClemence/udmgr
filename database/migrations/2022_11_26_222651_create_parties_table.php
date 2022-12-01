@@ -18,6 +18,7 @@ return new class extends Migration
             $table->integer('legal_case_id');
             $table->integer('type');
             $table->string('name');
+            $table->unique(['legal_case_id','name']);
             $table->timestamps();
         });
     }

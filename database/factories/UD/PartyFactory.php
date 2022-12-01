@@ -20,7 +20,7 @@ class PartyFactory extends Factory
     {
         return [
             'type'=>Party::PLAINTIFF,
-            'name'=>Str::random(25)
+            'name'=>fake()->name
         ];
     }
 }
