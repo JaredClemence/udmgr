@@ -25,6 +25,7 @@ class PartySeeder extends Seeder
                'legal_case_id'=>$legal_case_id,
                'type' => Party::PLAINTIFF,
                'name' => "WATSON REALTY SERVICES, INC",
+               'short'=> "WATSON",
              ]
            );
            $limit = rand(1,3);
@@ -32,8 +33,7 @@ class PartySeeder extends Seeder
              Party::factory()->create(
                [
                  'legal_case_id'=>$legal_case_id,
-                 'type' => Party::DEFENDANT,
-                 'name' => fake()->name,
+                 'type' => Party::DEFENDANT
                ]
              );
            }

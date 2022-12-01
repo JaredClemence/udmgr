@@ -32,9 +32,11 @@ class PartyModelTest extends TestCase
         $this->seed(DatabaseSeeder::class);
         $case = LegalCase::all()->random();
         $legal_case_id = $case->id;
-        $name = fake()->name;
+        $last = fake()->lastName;
+        $name = fake()->firstName . ' ' . $last;
+        $short = $last;
         $type = collect( [Party::PLAINTIFF, Party::DEFENDANT] )->random();
-        $settings = compact( 'legal_case_id', 'name', 'type' );
+        $settings = compact( 'legal_case_id', 'name', 'type', 'short' );
         Party::create( $settings ); //should be successful
         $this->assertEquals( 1, Party::where( $settings )->get()->count() );
         try{

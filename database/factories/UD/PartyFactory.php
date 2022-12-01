@@ -18,9 +18,12 @@ class PartyFactory extends Factory
      */
     public function definition()
     {
+        $first = fake()->firstName;
+        $last = fake()->lastName;
         return [
             'type'=>Party::PLAINTIFF,
-            'name'=>fake()->name
+            'name'=>"$first $last",
+            'short'=>$last,
         ];
     }
 }

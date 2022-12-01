@@ -10,9 +10,10 @@ class Party extends Model
     protected $fillable = [
       'legal_case_id',
       'type',
-      'name'
+      'name',
+      'short',
     ];
-    
+
     const PLAINTIFF = 1;
     const DEFENDANT = 0;
 
